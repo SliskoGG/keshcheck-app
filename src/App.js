@@ -142,7 +142,7 @@ const KeshCheckApp = () => {
         totals
       };
 
-      const response = await fetch(`${SUPABASE_URL}/functions/v1/swift-action`, {
+      const response = await fetch(`${SUPABASE_URL}/functions/v1/ai-advisor-new`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
