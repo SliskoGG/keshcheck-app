@@ -162,7 +162,7 @@ const KeshCheckApp = () => {
       
       if (data.error) {
         // Use fallback message if provided
-        return data.fallback || 'Ups! Nešto nije u redu sa mojom AI glavom 🤖 Pokušaj ponovo!';
+        return data.message || 'Ups! Nešto nije u redu sa mojom AI glavom 🤖 Pokušaj ponovo!';
       }
 
       return data.message;
@@ -355,7 +355,7 @@ const KeshCheckApp = () => {
             <div className="flex items-start space-x-3 text-left">
               <MessageCircle className="w-6 h-6 text-purple-500 mt-1" />
               <div>
-                <h3 className="font-semibold text-gray-800">Tvoj AI Drug</h3>
+                <h3 className="font-semibold text-gray-800">AI Savetnik</h3>
                 <p className="text-sm text-gray-600">Koji te neće osuđivati kad potrošiš na gluposti</p>
               </div>
             </div>
@@ -392,12 +392,12 @@ const KeshCheckApp = () => {
     );
   }
 
-  // Main Dashboard
+  // Main Dashboard - RESPONSIVE VERSION
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <header className="bg-white shadow-sm border-b">
-        <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-gradient-to-r from-purple-500 to-blue-500 rounded-xl flex items-center justify-center">
               <Sparkles className="w-6 h-6 text-white" />
@@ -415,39 +415,39 @@ const KeshCheckApp = () => {
         </div>
       </header>
 
-      <div className="max-w-6xl mx-auto p-4 space-y-6">
+      <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
         {/* TOP THIRD - Financial Overview */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-white rounded-2xl p-6 shadow-sm">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+          <div className="bg-white rounded-2xl p-4 lg:p-6 shadow-sm">
             <h3 className="text-sm font-medium text-gray-600 mb-2">UKUPNO</h3>
-            <p className="text-2xl font-bold text-gray-800">{formatCurrency(totals.total, 'EUR')}</p>
+            <p className="text-xl lg:text-2xl font-bold text-gray-800">{formatCurrency(totals.total, 'EUR')}</p>
             <div className="flex items-center mt-2">
               <TrendingUp className="w-4 h-4 text-green-500 mr-1" />
               <span className="text-sm text-green-600">+12%</span>
             </div>
           </div>
           
-          <div className="bg-white rounded-2xl p-6 shadow-sm">
+          <div className="bg-white rounded-2xl p-4 lg:p-6 shadow-sm">
             <h3 className="text-sm font-medium text-gray-600 mb-2">OVAJ MESEC</h3>
-            <p className="text-2xl font-bold text-gray-800">{formatCurrency(totals.thisMonth, 'EUR')}</p>
+            <p className="text-xl lg:text-2xl font-bold text-gray-800">{formatCurrency(totals.thisMonth, 'EUR')}</p>
             <div className="flex items-center mt-2">
               <TrendingDown className="w-4 h-4 text-red-500 mr-1" />
               <span className="text-sm text-red-600">-5%</span>
             </div>
           </div>
           
-          <div className="bg-white rounded-2xl p-6 shadow-sm">
+          <div className="bg-white rounded-2xl p-4 lg:p-6 shadow-sm">
             <h3 className="text-sm font-medium text-gray-600 mb-2">OVE SEDMICE</h3>
-            <p className="text-2xl font-bold text-gray-800">{formatCurrency(totals.thisWeek, 'EUR')}</p>
+            <p className="text-xl lg:text-2xl font-bold text-gray-800">{formatCurrency(totals.thisWeek, 'EUR')}</p>
             <div className="flex items-center mt-2">
               <TrendingUp className="w-4 h-4 text-green-500 mr-1" />
               <span className="text-sm text-green-600">+8%</span>
             </div>
           </div>
           
-          <div className="bg-white rounded-2xl p-6 shadow-sm">
+          <div className="bg-white rounded-2xl p-4 lg:p-6 shadow-sm">
             <h3 className="text-sm font-medium text-gray-600 mb-2">DANAS</h3>
-            <p className="text-2xl font-bold text-gray-800">{formatCurrency(totals.today, 'EUR')}</p>
+            <p className="text-xl lg:text-2xl font-bold text-gray-800">{formatCurrency(totals.today, 'EUR')}</p>
             <div className="flex items-center mt-2">
               <TrendingDown className="w-4 h-4 text-red-500 mr-1" />
               <span className="text-sm text-red-600">-15€</span>
@@ -457,18 +457,18 @@ const KeshCheckApp = () => {
 
         {/* MID THIRD - AI Trener */}
         <div className="bg-white rounded-2xl shadow-sm">
-          <div className="p-6 border-b">
+          <div className="p-4 lg:p-6 border-b">
             <h2 className="text-xl font-bold text-gray-800 flex items-center">
               <MessageCircle className="w-6 h-6 text-purple-600 mr-2" />
-              Tvoj AI Drug 💬
+              AI Savetnik 💬
             </h2>
           </div>
           
-          <div className="p-6">
-            <div className="h-64 overflow-y-auto space-y-4 mb-4">
+          <div className="p-4 lg:p-6">
+            <div className="h-64 lg:h-80 overflow-y-auto space-y-4 mb-4">
               {chatMessages.map((msg, index) => (
                 <div key={index} className={`flex ${msg.type === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`max-w-xs px-4 py-2 rounded-2xl ${
+                  <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-2xl ${
                     msg.type === 'user' 
                       ? 'bg-purple-600 text-white' 
                       : 'bg-gray-100 text-gray-800'
@@ -480,7 +480,7 @@ const KeshCheckApp = () => {
               
               {isAiLoading && (
                 <div className="flex justify-start">
-                  <div className="max-w-xs px-4 py-2 rounded-2xl bg-gray-100 text-gray-800 flex items-center space-x-2">
+                  <div className="max-w-xs lg:max-w-md px-4 py-2 rounded-2xl bg-gray-100 text-gray-800 flex items-center space-x-2">
                     <div className="flex space-x-1">
                       <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
                       <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.1s' }}></div>
@@ -514,13 +514,13 @@ const KeshCheckApp = () => {
         </div>
 
         {/* BOTTOM THIRD - Data */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
           {/* Left: Transactions */}
           <div className="bg-white rounded-2xl shadow-sm">
-            <div className="p-6 border-b">
-              <h2 className="text-xl font-bold text-gray-800">ŠTA SI RADIO/LA? 🤔</h2>
+            <div className="p-4 lg:p-6 border-b">
+              <h2 className="text-xl font-bold text-gray-800">Potrošnja</h2>
             </div>
-            <div className="p-6">
+            <div className="p-4 lg:p-6">
               <div className="space-y-4">
                 {transactions.slice(0, 5).map((transaction) => {
                   const IconComponent = getCategoryIcon(transaction.category);
@@ -556,10 +556,10 @@ const KeshCheckApp = () => {
 
           {/* Right: Goals */}
           <div className="bg-white rounded-2xl shadow-sm">
-            <div className="p-6 border-b">
+            <div className="p-4 lg:p-6 border-b">
               <h2 className="text-xl font-bold text-gray-800">CILJEVI (koji se zaista postižu) 🎯</h2>
             </div>
-            <div className="p-6">
+            <div className="p-4 lg:p-6">
               <div className="space-y-4">
                 {goals.map((goal) => {
                   const progress = (goal.current / goal.target) * 100;
@@ -633,6 +633,7 @@ const KeshCheckApp = () => {
         </button>
       </div>
 
+      {/* ALL MODALS REMAIN THE SAME */}
       {/* Add Transaction Modal */}
       {showAddTransaction && (
         <div 
