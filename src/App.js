@@ -829,7 +829,7 @@ const KeshCheckApp = () => {
                 {/* Goals */}
                 <div className="bg-white rounded-2xl shadow-sm">
                   <div className="p-6 border-b">
-                    <h2 className="text-xl font-bold text-gray-800">CILJEVI (koji se zaista postižu) 🎯</h2>
+                    <h2 className="text-xl font-bold text-gray-800">CILJEVI </h2>
                   </div>
                   <div className="p-6">
                     <div className="space-y-4">
