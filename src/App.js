@@ -48,7 +48,6 @@ const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Get initial session
     const getSession = async () => {
       const { data: { session } } = await supabase.auth.getSession();
       setUser(session?.user ?? null);
@@ -57,7 +56,6 @@ const AuthProvider = ({ children }) => {
 
     getSession();
 
-    // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
         setUser(session?.user ?? null);
@@ -70,7 +68,6 @@ const AuthProvider = ({ children }) => {
 
   const signInWithGoogle = async () => {
     try {
-      // Check user count first
       const userCount = await getUserCount();
       if (userCount >= 50) {
         throw new Error('Dostignuli smo maksimalni broj korisnika (50). Molimo pokušajte kasnije.');
@@ -259,7 +256,7 @@ const LoginScreen = () => {
   );
 };
 
-// User Profile Component (for header)
+// User Profile Component
 const UserProfile = () => {
   const { user, signOut } = useAuth();
   const [showDropdown, setShowDropdown] = useState(false);
@@ -345,9 +342,8 @@ const ProtectedRoute = ({ children }) => {
   return children;
 };
 
-// Updated Main App Component with Authentication
+// Main App Component
 const KeshCheckApp = () => {
-  // All your existing state and logic remains the same...
   const [currentView, setCurrentView] = useState('dashboard');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [currentMonth, setCurrentMonth] = useState('maj');
@@ -357,7 +353,6 @@ const KeshCheckApp = () => {
   const [showQuickActions, setShowQuickActions] = useState(false);
   const [showCurrencyConverter, setShowCurrencyConverter] = useState(false);
   
-  // Form states
   const [transactionType, setTransactionType] = useState('expense');
   const [amount, setAmount] = useState('');
   const [currency, setCurrency] = useState('EUR');
@@ -368,7 +363,6 @@ const KeshCheckApp = () => {
   const [goalAmount, setGoalAmount] = useState('');
   const [goalDeadline, setGoalDeadline] = useState('');
   
-  // Chat state
   const [chatMessages, setChatMessages] = useState([
     {
       type: 'ai',
@@ -378,7 +372,6 @@ const KeshCheckApp = () => {
   const [chatInput, setChatInput] = useState('');
   const [isAiLoading, setIsAiLoading] = useState(false);
   
-  // All your existing data structures remain the same...
   const monthlyData = {
     maj: {
       name: 'Maj 2025',
@@ -427,7 +420,6 @@ const KeshCheckApp = () => {
     { id: 3, name: 'Novi Laptop', target: 1200, current: 180, deadline: '2025-09-01', currency: 'EUR' }
   ]);
 
-  // All your existing functions remain the same...
   const currencies = [
     { code: 'EUR', symbol: '€', name: 'Euro' },
     { code: 'RSD', symbol: 'дин', name: 'Srpski dinar' },
@@ -457,7 +449,6 @@ const KeshCheckApp = () => {
 
   const [activeNav, setActiveNav] = useState('dashboard');
 
-  // All your helper functions remain exactly the same...
   const formatCurrency = (amount, currencyCode) => {
     const currencyObj = currencies.find(c => c.code === currencyCode);
     return `${amount} ${currencyObj?.symbol || currencyCode}`;
@@ -523,7 +514,6 @@ const KeshCheckApp = () => {
       .sort((a, b) => b.amount - a.amount);
   };
 
-  // All your event handlers remain the same...
   const handleAddTransaction = async () => {
     if (amount && category) {
       const newTransaction = {
@@ -541,7 +531,6 @@ const KeshCheckApp = () => {
       setIsAiLoading(true);
       const contextMessage = `Upravo sam ${transactionType === 'expense' ? 'potrošio' : 'zaradio'} ${formatCurrency(amount, currency)} na ${categories.find(c => c.id === category)?.name}`;
       
-      // Simple fallback response for now
       setTimeout(() => {
         setChatMessages(prev => [...prev, {
           type: 'ai',
@@ -569,7 +558,6 @@ const KeshCheckApp = () => {
       setChatInput('');
       setIsAiLoading(true);
       
-      // Simple AI response for now
       setTimeout(() => {
         const responses = [
           "Analiziraću tvoje podatke i javim ti šta mislim! 🤖",
@@ -590,15 +578,13 @@ const KeshCheckApp = () => {
   const totals = calculateTotals();
   const categoryTotals = calculateCategoryTotals();
 
-  // Welcome Screen (simplified since we have login)
   if (currentView === 'welcome') {
     setCurrentView('dashboard');
   }
 
-  // Main Dashboard Layout (same as before but with UserProfile in header)
   return (
     <div className="min-h-screen bg-gray-50 flex">
-      {/* Sidebar - Same as before */}
+      {/* Sidebar */}
       <div className={`${sidebarCollapsed ? 'w-16' : 'w-64'} bg-white shadow-lg transition-all duration-300 flex flex-col lg:flex hidden`}>
         <div className="p-4 border-b">
           <div className="flex items-center justify-between">
@@ -685,7 +671,6 @@ const KeshCheckApp = () => {
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
-        {/* Header with User Profile */}
         <header className="bg-white shadow-sm border-b">
           <div className="px-6 py-4 flex items-center justify-between">
             <div className="flex items-center space-x-4">
@@ -719,16 +704,13 @@ const KeshCheckApp = () => {
                 <span className="hidden sm:inline">Dodaj Trošak</span>
               </button>
               
-              {/* User Profile Dropdown */}
               <UserProfile />
             </div>
           </div>
         </header>
 
-        {/* Dashboard Content - Same as before */}
         <div className="flex-1 p-6">
           <div className="max-w-7xl mx-auto">
-            {/* Financial Overview */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
               <div className="bg-white rounded-2xl p-6 shadow-sm">
                 <h3 className="text-sm font-medium text-gray-600 mb-2">UKUPNO</h3>
@@ -767,9 +749,7 @@ const KeshCheckApp = () => {
               </div>
             </div>
 
-            {/* Two Column Layout - Same content as before */}
             <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
-              {/* Left Column - Transactions & Categories */}
               <div className="space-y-6">
                 <div className="bg-white rounded-2xl shadow-sm">
                   <div className="p-6 border-b">
@@ -832,7 +812,6 @@ const KeshCheckApp = () => {
                 </div>
               </div>
 
-              {/* Right Column - AI Chat & Goals */}
               <div className="space-y-6">
                 <div className="bg-white rounded-2xl shadow-sm">
                   <div className="p-6 border-b">
@@ -929,7 +908,6 @@ const KeshCheckApp = () => {
         </div>
       </div>
 
-      {/* Add Transaction Modal - Same as before */}
       {showAddTransaction && (
         <div 
           className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50"
